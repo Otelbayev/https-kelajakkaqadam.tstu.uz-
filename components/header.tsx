@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { name: "Sahifalar", href: "/page" },
@@ -13,6 +14,9 @@ const navLinks = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,13 +26,15 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const headerBg = scrolled
+    ? "bg-black/50 backdrop-blur-md border-b border-white/10 py-3"
+    : isHome
+    ? "bg-transparent py-5"
+    : "bg-gray-900 py-5";
+
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-black/50 backdrop-blur-md border-b border-white/10 py-3"
-          : "bg-transparent py-5"
-      }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${headerBg}`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}
@@ -45,7 +51,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-[15px] font-medium text-white/80 hover:text-white transition-colors duration-200"
+              className="text-[15px] font-medium text-white/80 hover:text-white transition-colors"
             >
               {link.name}
             </Link>
@@ -61,7 +67,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Nav Overlay */}
+      {/* Mobile Nav */}
       <AnimatePresence>
         {open && (
           <motion.nav
@@ -76,7 +82,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="text-white/90 hover:text-blue-400 text-lg font-medium transition-colors"
+                  className="text-white/90 hover:text-blue-400 text-lg font-medium"
                 >
                   {link.name}
                 </Link>

@@ -114,11 +114,13 @@
 
 @layer base {
   * {
-    scroll-behavior: smooth;
     @apply border-border outline-ring/50;
   }
   body {
-    scroll-behavior: smooth;
     @apply bg-background text-foreground;
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }

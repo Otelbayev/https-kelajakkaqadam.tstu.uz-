@@ -66,7 +66,7 @@ const BlogListPage = () => {
   }
 
   return (
-    <section className="max-w-7xl mx-auto px-4 py-10">
+    <section className="max-w-7xl mx-auto px-4 py-10 mt-15">
       <h1 className="text-3xl font-bold mb-10">Bloglar</h1>
 
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
